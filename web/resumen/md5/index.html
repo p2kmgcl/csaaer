@@ -1,0 +1,69 @@
+<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#resumen_index">Funciones Resumen</a> - <a href="#resumen_md5_index">MD5</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>
+	<!-- Descripción del algoritmo -->
+	<p><b>MD5</b> es uno de los algoritmos de reducción criptográficos diseñados por el profesor Ronald Rivest del MIT (<i>Massachusetts Institute of Technology</i>, Instituto Tecnológico de Massachusetts). Fue desarrollado en 1991 como reemplazo del algoritmo MD4 después de que Hans Dobbertin descubriese su debilidad.</p>
+	<p>A pesar de su amplia difusión actual, la sucesión de problemas de seguridad detectados desde que, en 1996, Hans Dobbertin anunciase una colisión de hash, plantea una serie de dudas acerca de su uso futuro.</p>
+
+	<h2>Ejemplos</h2>
+	<p>La codificación del MD5 de 128 bits es representada típicamente como un número de 32 dígitos hexadecimal.</p>
+	<pre>   MD5("Esto sí es una prueba de MD5") = 02306f485f385f6ed9ab6626052a633d
+	</pre>
+	<p>Un simple cambio en el mensaje nos da un cambio total en la codificación, en este caso cambiamos dos letras, el «sí» por un «no».</p>
+	<pre>   MD5("Esto no es una prueba de MD5") = dd21d99a468f3bb52a136ef5beef5034
+	</pre>
+	<p>Otro ejemplo sería la codificación de un campo vacío:</p>
+	<pre>   MD5("") = d41d8cd98f00b204e9800998ecf8427e
+	</pre>
+	<h2>Debilidades</h2>
+	<p>A pesar de haber sido considerado criptográficamente seguro en un principio, ciertas investigaciones han revelado vulnerabilidades que hacen cuestionable el uso futuro del MD5. En agosto de 2004, Xiaoyun Wang, Dengguo Feng, Xuejia Lai y Hongbo Yu anunciaron el descubrimiento de colisiones para MD5. Su ataque se consumó en una hora de cálculo con un clúster IBM P690.</p>
+	<p>Aunque dicho ataque era analítico, el tamaño del hash (128 bits) es lo suficientemente pequeño como para que resulte vulnerable frente a ataques de fuerza bruta tipo cumpleaños. El proyecto de computación distribuida <i>MD5CRK</i> arrancó en marzo de 2004 con el propósito de demostrar que MD5 es inseguro frente a uno de tales ataques, aunque acabó poco después del aviso de la publicación de la vulnerabilidad del equipo de Wang.</p>
+	<p>Debido al descubrimiento de métodos sencillos para generar colisiones, muchos investigadores recomiendan su sustitución por algoritmos alternativos tales como SHA-1 o RIPEMD-160.</p>
+	<h2>Aplicaciones</h2>
+	<p>Los resúmenes MD5 se utilizan extensamente en el mundo del software para proporcionar la seguridad de que un archivo descargado de Internet no se ha alterado. Comparando una suma MD5 publicada con la suma de comprobación del archivo descargado, un usuario puede tener la confianza suficiente de que el archivo es igual que el publicado por los desarrolladores. Esto protege al usuario contra los Troyanos y virus que algún otro usuario malicioso pudiera incluir en el software. La comprobación de un archivo descargado contra su suma MD5 no detecta solamente los archivos alterados de una manera maliciosa, también reconoce una descarga corrupta o incompleta.</p>
+	<p>Para comprobar la integridad de un archivo descargado de Internet se puede utilizar una herramienta MD5 para comparar la suma MD5 de dicho archivo con un archivo MD5SUM con el resumen MD5 del primer archivo. En los sistemas UNIX, el comando de <i>md5sum</i> es un ejemplo de tal herramienta. Además, también está implementado en el lenguaje de <i>scripting</i> PHP como MD5("") entre otros.</p>
+
+
+<form>
+		<input type="text" id="origen" placeholder="Introduce el texto para cifrarlo/descifrarlo" class="formulario" />
+		<div id="botones">
+			<input type="button" id="codificador" value="Hashear" />
+		</div>
+		<input type="text" id="resultado" placeholder="Aquí aparecerá el tecto cifrado/descrifrado" class="formulario" />
+	</form>
+<article>
+
+<style>
+	form input, form textarea{
+		text-align: center;
+		margin: 10px auto;
+		display: block;
+		font-size: 20px;
+	}
+	#origen, #resultado{
+		width: 100%;
+		padding: 20px;
+	}
+	#codificador{
+		display: inline;
+	}
+	#botones{
+		margin: auto;
+		width: 100%;
+		text-align: center;
+		display: block;
+	}
+</style>
+
+<script>
+
+	$("#codificador").click(function(){
+	$("#resultado").val( md5( $("#origen").val() ) );
+});
+
+
+$(".marcoMenuRueda").load("web/resumen/index.html .menuRueda");
+cargado = true;</script>

@@ -1,0 +1,116 @@
+﻿<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#clasicos_index">Algoritmos Clásicos</a> - <a href="#clasicos_caesar_index">Caesar</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>	
+	<h2>Algo de historia</h2>
+	<p>El crifrado César (o Caesar) recibe este nombre en honor a Julio César, el cual usaba este algoritmo para comunicarse con sus generales. Es uno de los algoritmos de cifrado más sencillos y a la vez de los más usados debido a su sencillez.</p>
+	<p>Con la potencia de los ordenadores actuales no resulta un lenguaje de cifrado muy seguro. No obstante, si usamos algún sistema que "mantenga al margen" a las máquinas (como por ejemplo escribiendo los mensajes con una caligrafía no legible para ellas) podemos tener una encriptación sencilla y útil.</p>
+	<p>Así mismo, algunos algoritmos de cifrado modernos basan sus técnicas en éste, usando este tipo de sustitución dentro del proceso de cifrado. Consulta los algoritmos <a href="#clasicos_vigenere_index">Cifrado Vigenère</a> o <a href="#clasicos_rot13_index">Rot13</a> para saber más.</p>
+	
+	<h2>Proceso de cifrado</h2>
+	<p>El proceso para codificar un mensaje con este cifrado es muy simple: partiendo de un alfabeto formado por todos los caracteres del lenguaje que usemos, sustituimos cada carácter por el que se encuentre 3 posiciones más a la derecha. De esta forma la letra 'a' sería una 'd' y así sucesivamente.</p>
+	
+	<h2>Ejemplo práctico</h2>
+	<p>En este ejemplo hemos usado un diccionario bastante más amplio que las letras del abecedario (prácticamente todos los caracteres imprimibles por el teclado) pero el sistema de cifrado es el mismo. Escribe un mensaje, pulsa "Codificar" y lo verás cifrado en la caja de texto inferior. Escribe el mensaje codificado, pulsa "Decodificar" y tendrás el mensaje original</p>
+	<form>
+		<input type="text" id="origen" placeholder="Introduce el texto para cifrarlo/descifrarlo" class="formulario" />
+		<div id="botones">
+			<input type="button" id="codificador" value="Codificar" />
+			<input type="button" id="decodificador" value="Decodificar" />
+		</div>
+		<input type="text" id="resultado" placeholder="Aquí aparecerá el tecto cifrado/descrifrado" class="formulario" />
+	</form>
+<article>
+
+<style>
+	form input, form textarea{
+		text-align: center;
+		margin: 10px auto;
+		display: block;
+		font-size: 20px;
+	}
+	#origen, #resultado{
+		width: 100%;
+		padding: 20px;
+	}
+	#codificador, #decodificador{
+		display: inline;
+	}
+	#botones{
+		margin: auto;
+		width: 100%;
+		text-align: center;
+		display: block;
+	}
+</style>
+<script>
+/**
+ * @brief Devuelve un array con todos los caracteres ascii imprimibles (y algunos
+ *	no imprimibles.
+ */
+function arrayAscii(){
+	var a=new Array();
+	for(i=33; i<257; i++){
+	    if((i>125)&&(i<=159)){}
+	    else a.push(String.fromCharCode(i));
+	}
+	a.push(" ");
+	return a;
+}
+
+/**
+ * @brief Algoritmo que aplica la encriptación rot13
+ * @param texto Texto que se quiere codificar/decodificar
+ * @param diccionario Conjunto de caracteres que se quieren usar para la decodi-
+ *	ficación. Debe tener, como mínimo, todos los caracteres de la cadena original.
+ * @param rotacion Desplazamiento que se desea usar para la codificación. Puede
+ *	ser cualquier número entero. Si se envía un 0 se devolverá el texto tal cual.
+ *	Un texto codificado con desplazamiento 3 será decodificado con desplazamiento -3.
+ *
+ * @return
+ *	- Devuelve la cadena codificada/decodificada si todo se hace correctamente.
+ *	- Devuelve -1 si el diccionario no tiene alguno de los caracteres de la cadena	
+ */
+function rot13 ( texto, diccionario, rotacion ) {
+	var posIndex = 0;	//< Posición de la letra en el diccionario
+	var texto2 = new Array( );	//< Texto a devolver
+
+	if( rotacion == 0 ) return texto;
+
+	for ( var i = 0; i < texto.length; i++ ) {
+		posIndex = parseInt( diccionario.indexOf( texto[i] ) );		
+		
+		// Si la letra no está en el diccionario, enviamos el error
+		if( posIndex == -1 ) return -1;
+
+		// Reducimos el desplazamiento si llegamos al limite del diccionario
+		while( ( posIndex + rotacion ) >= diccionario.length ) {
+			posIndex -= diccionario.length;
+		}
+
+		// Aumentamos el desplazamiento si es una decodificacion
+		while( ( posIndex + rotacion ) < 0 ) {
+			posIndex += diccionario.length;
+		}
+
+		// Hacemos el cambio
+		texto2.push( diccionario[ ( posIndex + rotacion ) ] );
+	}
+	
+	return texto2.join("");
+}
+
+var dic = arrayAscii();
+
+$("#codificador").click(function(){
+	$("#resultado").val( rot13( $("#origen").val(), dic, 3 ) );
+});
+$("#decodificador").click(function(){
+	$("#resultado").val( rot13( $("#origen").val(), dic, (-3) ) );
+});
+
+$(".marcoMenuRueda").load("web/clasicos/index.html .menuRueda");
+cargado=true;
+</script>

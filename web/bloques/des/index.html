@@ -1,0 +1,90 @@
+﻿<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#bloques_index">Cifrado Por Bloques</a> - <a href="#bloques_des_index">DES</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>
+	<!-- Descripción del algoritmo -->
+	<p>DES (Data Encryption Standard) es un esquema de encriptación simétrico desarrollado en 1977 por el Departamento de Comercio y la Oficina Nacional de Estándares de EEUU en colaboración con la empresa IBM, que se creó con objeto de proporcionar al público en general un algoritmo de cifrado normalizado para redes de ordenadores. Estaba basado en la aplicación de todas las teorías criptográficas existentes hasta el momento, y fué sometido a las leyes de USA.
+
+DES utiliza una clave simétrica de 64 bits, de los cuales 56 son usados para la encriptación, mientras que los 8 restantes son de paridad, y se usan para la detección de errores en el proceso.
+
+Como la clave efectiva es de 56 bits, son posible un total de 2 elevado a 56 = 72.057.594.037.927.936 claves posibles, es decir, unos 72.000 billones de claves, por lo que la ruptura del sistema por fuerza bruta o diccionario es súmamente improbable, aunque no imposible si se dispone de una grán potencia de cálculo.</p>
+	
+	<h2>Los principales inconvenientes que presenta DES son:</h2>
+	
+	<p>    Se considera un secreto nacional de EEUU, por lo que está protegido por leyes específicas, y no se puede comercializar ni en hardware ni en sofware fuera de ese país sin permiso específico del Departamento de Estado.
+    </p>
+	<p>
+	La clave es corta, tanto que no asegura una fortaleza adecuada. 
+     </p>
+	<p>   
+	No permite longitud de clave variable, con lo que sus posibilidades de configuración son muy limitadas, además de permitirse con ello la creación de limitaciones legales.
+     </p>
+	<p>   
+	La seguridad del sistema se ve reducida considerablemente si se conoce un número suficiente textos elegidos, ya que existe un sistema matemático, llamado Criptoanálisis Diferencial, que puede en ese caso romper el sistema en 2 elevado a 47 iteraciones.
+	</p>
+	
+	<h2>Y sus ventajas:</h2>
+	
+	<p>    Es el sistema más extendido del mundo, el que más máquinas usan, el más barato y el más probado.
+     </p>
+	<p>   
+	Es muy rápido y fácil de implementar.
+    </p>
+	<p>    
+	Desde su aparición nunca ha sido roto con un sistema práctico.
+	</p>
+
+	<p><strong>Actualmente DES ya no es estándar y fué roto en Enero de 1999 con un poder de cómputo que efectuaba aproximadamente 250 mil millones de ensayos en un segundo.</strong></p>
+
+
+	
+	<h2>Curiosidades:</h2>
+	<p>Debido al modo en el que se generan las subclaves en las diferentes rondas, existen una serie de claves que no son aptas para ser utilizadas. Las primeras de estas claves son conocidas como claves débiles (o weak keys). La debilidad de estas claves es que todos los bits de cada una de las dos mitades que entran en los registros de rotación son todo unos o todo ceros. Entonces, por mucho que rotemos estas palabras de bits, siempre obtendremos la misma subclave. </p>
+	<center>
+	<table cellspacing="1" cellpadding="5" border="0" bgcolor="#000000" align="center">
+		<tbody><tr bgcolor="#FFFFFF" align="center">
+			<th>Claves Débiles</th>
+			<th>Subclave</th>
+		</tr>
+		<tr bgcolor="#FFFFFF" align="center">
+			<td><font face="Courier New">101010101010101</font></td>
+			<td><font face="Courier New">0000000 0000000 </font></td>
+		</tr>
+		<tr bgcolor="#FFFFFF" align="center">
+			<td><font face="Courier New">1F1F1F1F0E0E0E0E</font></td>
+			<td><font face="Courier New">0000000 FFFFFFF </font></td>
+		</tr>
+		<tr bgcolor="#FFFFFF" align="center">
+			<td><font face="Courier New">E0E0E0E0F1F1F1F1</font></td>
+			<td><font face="Courier New">FFFFFFF 0000000 </font></td>
+		</tr>
+		<tr bgcolor="#FFFFFF" align="center">
+			<td><font face="Courier New">FEFEFEFEFEFEFEFE</font></td>
+			<td><font face="Courier New">FFFFFFF FFFFFFF </font></td>
+		</tr>
+	</tbody></table>
+	</center>
+	<p><strong>Triple DES</strong></p>
+	<p>
+	Como hemos visto, el sistema DES se considera en la actualidad poco práctico, debido a la corta longitud de su clave. Para solventar este problema y continuar utilizando DES se creó el sistema Triple DES (TDES), basado en tres iteraciones sucesivas del algoritmo DES, con lo que se consigue una longitud de clave de 128 bits, y que es compatible con DES simple.
+    </p>
+	<p>  
+	Este hecho se basa en que DES tiene la característica matemática de no ser un grupo, lo que implica que si se encripta el mismo bloque dos veces con dos llaves diferentes se aumenta el tamaño efectivo de la llave.
+    </p>
+	<p>  
+	Para implementarlo, se toma una clave de 128 bits y se divide en 2 diferentes de 64 bits, aplicándose el siguiente proceso al documento en claro: 
+	</p>
+	<img src="imagenes/tdes.gif"/>
+	</article>
+
+<style>
+</style>
+
+<script>
+	// Aquí va el código del algoritmo
+</script>
+
+<script>$(".marcoMenuRueda").load("web/bloques/index.html .menuRueda");
+cargado = true;</script>

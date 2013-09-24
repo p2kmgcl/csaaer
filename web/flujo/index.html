@@ -1,0 +1,22 @@
+﻿<header id="cabeceraSecundaria">
+	<hgroup>
+		<h1><a href="#">csaaer</a> - <a href="#flujo_index">Cifrado de flujo</a></h1>
+		<h2>Demostraciones y estudios sobre algoritmos criptográficos</h2>
+	</hgroup>
+</header>
+<article>
+	<h2>Introducción</h2>
+	<p>Los cifrado de flujo son algoritmos criptográficos modernos, los cuales cifran un mensaje original combinándolo, usando la operación XOR, con un flujo de datos pseudoaleatorio del mismo o incluso mayor tamaño, generando así un texto cirado con clave secreta.</p>
+	<img src="imagenes/cifradoFlujo.png" />	
+	<p>La secuencia de datos cifrante (el flujo de datos) se obtiene de una clave secreta K que solo conocen el emisor y el receptor. Para conseguir que este flujo sea de gran tamaño, se utiliza una semilla de valor N que generará flujos de valor superior a 2^N, consiguiendo así reducir la clave que los usuarios deberán conocer.
+	<h2>Algo de historia</h2>
+	<p>El primer algoritmo de flujo fue el Cifrado Verman, creado en 1917 en los laboratorios AT&T Bells Labs por Gilbert Verman.
+	<p></p>Joseph Mauborgne contribuyó tras la creación del cifrado proponiendo el uso de una cinta de papel donde se almacenase información aleatoria. Este añadido al anterior cifrado propició la creación de la libreta de un solo uso. Este método de cifrado es irrompible, tal y como demostró Claude Shannon, pero también requiere libretas perfectamente aleatorias y tan largas como el propio mensaje, lo que dificulta su implementación y suele concluir en errores que posibilitan un ataque criptográfico.
+	<p>Uno de los últimos y más conocidos cifrados de flujo basados en el Verman es el RC4, que se utiliza en muchos protocolos importantes en Internet.
+</article>
+
+<nav class="menuRueda"><ul>
+	<li><a href="#flujo_rc4_index">RC4</a></li>
+	<li><a href="#flujo_seal_index">SEAL</a></li>
+</ul></nav>
+<script> cargado=true; </script>

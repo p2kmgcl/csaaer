@@ -1,0 +1,162 @@
+﻿<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#clasicos_index">Algoritmos Clásicos</a> - <a href="#clasicos_enigma_index">Enigma</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>
+
+<h2>Algo de historia</h2>
+	<p>La Máquina Enigma fue una invención del ingeniero alemán Arthur Scherbius desarrollada durante los años 20. Se trata de un aparato electromecánico de cifrado y descifrado de mensajes que usa un sistema de sustitución muy complejo.</p>
+
+	<p>Esta máquina alcanzó la fama durante la Segunda Guerra Mundial, al ser el principal método criptográfico utilizado por los alemanes para el intercambio de información desde el año 1925. Los alemanes compraron más de 30.000 máquinas Enigma, las cuales les proporcionaron el sistema de cifrado más seguro del mundo por aquella época.</p>
+
+	<p>La Enigma era una máquina muy segura, pero lo era tanto que los alemanes empezaron a usarla de forma descuidada. Un patrón de repetición en uno de los mensajes codificados le valió como pista al matemático polaco Marian Rejewski, que colaboraba en un proyecto secreto de las fuerzas aliadas para intentar desencriptar la máquina, para iniciar la "rotura" del secreto de la Enigma; una "rotura" que fue fundamental para la posterior victoria del bando aliado.</p>
+
+<h2>Proceso de Cifrado</h2>
+
+	<p>El funcionamiento real de la Máquina Enigma es complicado y díficil de entender. Para aproximar la explicación, podemos tomar como ejemplo el proceso del cifrado Vigenère.</p>
+
+	<p>La máquina está compuesta de un teclado, una zona de modificación y un tablero. Dentro de la zona de modificación se produce el cifrado de lo escrito por el teclado. Existen tres o más rotores, cada uno de ellos con el alfabeto usado. Podemos considerar un único rotor como una tabla de Vigenère: el rotor se mueve con cada nueva pulsación siguiendo una clave presente en el cableado, hasta que da una vuelta completa de 26 letras. Si usamos otro rotor, el número de claves posibles se multiplica por el anterior, es decir, si antes teníamos claves de 26 letras de longitud, ahora serían de 26*26=676 disposiciones.
+
+	<p>Con tres rotores, la longitud de clave sería 17.576, pero eso no es todo. Scherbius también pensó en añadir la posibilidad de mover los rotores de posición. En total, la cantidad de claves posibles en una Enigma de solo tres rotores podría sobrepasar el billón de posibilidades. Teniendo en cuenta que los alemanes cambiaban el orden cada día, desentrañar cualquier tipo de mensaje era practicamente imposible.
+
+	<p>Por último, existía un mecanismo dentro de la zona de modificación llamado Reflector. Como uno puede imaginar, esta parte servía para decodificar el mensaje cifrado con otra máquina enigma dispuesta con el orden de rotores que tenía la codificadora.</p>
+
+
+<h2>Ejemplo práctico</h2>
+	<p>Escribe 3 números para cada rotor, un mensaje, y pulsa "Codificar/Decodificar" y verás tu mensaje cifrado en la caja de texto inferior. Copia el mensaje codificado en la caja superior, pulsa "Codificar/Decodificar" y tendrás el mensaje original.</p>
+
+<form autocomplete="off" method="get">
+	<input type="number" id="rotor1" placeholder="0" maxlength="2" required class="formulario" />
+	<input type="number" id="rotor2" placeholder="0" maxlength="2" required class="formulario" />
+	<input type="number" id="rotor3" placeholder="0" maxlength="2" required class="formulario" />
+	<input type="text" pattern="[A-z]+" id="frase" placeholder="Escribe aquí tu frase" required class="formulario" />
+	<input id="ale" value="Codificar/Decodificar" type="button" />
+</form>
+<textarea id="resultado" placeholder="Aquí aparecerá el mensaje codificado" autocomplete="off" class="formulario"></textarea>
+
+</article>
+<style>
+	form{
+		padding-top: 50px;
+		display: block;
+		height: 100px;
+		width: 600px;
+	}
+	#rotor1, #rotor2, #rotor3{
+		width: 60px;
+		margin: auto;
+		height: 50px;
+		font-size: 50px;
+		text-align: center;
+	}
+	#ale{
+		margin: 20px;
+		margin-left: 210px;
+		font-size: 20px;
+	}
+	#frase{
+		display: block;
+		float: right;
+		width: 380px;
+		height: 50px;
+		font-size: 200%;
+	}
+	#resultado{
+		font-size: 300%;
+		text-align: center;
+		width: 500px;
+		min-height: 200px;
+		height: auto;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		margin: auto;
+		margin-top: 20px;
+		margin-left: 50px;
+	}
+</style>
+
+<script>
+/**
+ * Algoritmo de la máquina enigma
+ */
+function rotar(posiciones){
+	posiciones[0]++;
+
+	if( posiciones[0] == 26 ){
+		posiciones[0] = 0;
+		posiciones[1]++;
+		if( posiciones[1] == 26 ){
+			posiciones[1] = 0 ;
+			posiciones[2]++;
+			posiciones[2] = posiciones[2] % 26;
+		}
+	}
+	return posiciones;
+}
+
+function codificar(rotor1, rotor2, rotor3, espejo, letra, posiciones){
+	var indice,aux;
+	
+	indice = letra;
+	indice = rotor1[0] [(indice+posiciones[0]) % 26];
+	aux = (indice + posiciones[1] - posiciones[0]) % 26;
+	indice = rotor2[0][ (aux<0) ? (aux+26) : aux];
+	aux = (indice+posiciones[2]-posiciones[1])%26;
+	indice=rotor3[0][ (aux<0) ? (aux+26) : aux];
+	aux=(indice-posiciones[2])%26;
+	indice=espejo[ (aux<0) ? (aux+26) : aux];
+	indice=rotor3[1][(indice+posiciones[2])%26];
+	aux=(indice-posiciones[2]+posiciones[1])%26;
+	indice=rotor2[1][ (aux<0) ? (aux+26) : aux];
+	aux=(indice-posiciones[1]+posiciones[0])%26;
+	indice=rotor1[1][ (aux<0) ? (aux+26) : aux];
+	aux=((indice-posiciones[0])%26);
+	return ( (aux<0) ? (aux+26) : aux );
+
+}
+
+function main(){
+	var aux = 0,
+		mensaje = "",
+		cifrado="",
+		cifradoalfa;
+	
+	// [2][26]
+	var rotor1=[[7,10,8,4,23,21,20,24,11,17,6,2,14,15,9,3,13,22,19,25,18,12,16,1,0,5],
+						[24,23,11,15,3,25,10,0,2,14,1,8,21,16,12,13,22,9,20,18,6,5,17,4,7,19]];
+	var rotor2=[[20,14,16,6,2,4,5,18,24,25,1,0,17,19,9,11,13,7,22,21,10,15,12,3,23,8],
+						[11,10,4,23,5,6,3,17,25,14,20,15,22,16,1,21,2,12,7,13,0,19,18,24,8,9]];
+	var rotor3=[[19,12,0,17,22,21,23,18,25,8,4,14,15,9,3,1,10,20,24,2,13,7,5,6,11,16],
+						[2,15,19,14,10,22,23,21,9,13,16,24,1,20,11,12,25,3,7,0,17,5,4,6,18,8]];
+	var espejo=[25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0];
+	var posiciones=[0,0,0];
+	var alfabeto="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	
+	posiciones[0] = parseInt( $("#rotor1").val() ) ;
+	posiciones[1] = parseInt( $("#rotor2").val() ) ;
+	posiciones[2] = parseInt( $("#rotor3").val() ) ;
+	mensaje = $("#frase").val();
+	
+	mensaje = mensaje.toUpperCase();
+	cifradoalfa = mensaje;
+	cifradoalfa=cifradoalfa.split("");
+	
+	for(var i=0;i<mensaje.length;i++){
+		cifradoalfa[i]=alfabeto.indexOf(cifradoalfa[i]);
+	}
+	
+	
+	
+	for(var i=0;i<mensaje.length;i++){
+		cifrado=cifrado+alfabeto[codificar(rotor1,rotor2,rotor3,espejo,cifradoalfa[i],posiciones)];
+		rotar(posiciones);
+	}
+	$("#resultado").html(cifrado);
+}
+$("#ale").click(main);
+
+$(".marcoMenuRueda").load("web/clasicos/index.html .menuRueda");
+
+cargado=true;
+</script>

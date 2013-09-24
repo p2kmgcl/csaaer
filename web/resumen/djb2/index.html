@@ -1,0 +1,97 @@
+<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#resumen_index">Funciones Resumen</a> - <a href="#resumen_djb2_index">djb2</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>	
+	
+	<p>Esta funcion resumen esta pensada para hacer un resumen de una cadena de caracteres y la salida esta en formato numerico</p>
+	<form>
+		<input type="text" id="origen" placeholder="Introduce el texto para hasearlo" class="formulario" />
+		<div id="botones">
+			<input type="button" id="hashear" value="Hashear" />
+		</div>
+		<input type="text" id="resultado" placeholder="Aquí aparecerá el resumen del texto" class="formulario" />
+	</form>
+<article>
+
+<style>
+	form input, form textarea{
+		text-align: center;
+		margin: 10px auto;
+		display: block;
+		font-size: 20px;
+	}
+	#origen, #resultado{
+		width: 100%;
+		padding: 20px;
+	}
+	#hashear{
+		display: inline;
+	}
+	#botones{
+		margin: auto;
+		width: 100%;
+		text-align: center;
+		display: block;
+	}
+</style>
+<script>
+
+
+function deciToBin(arg) {
+  res1 = 999;
+  args = arg;
+  while(args>1) {
+    arg1 = parseInt(args/2);
+    arg2 = args%2;
+    args = arg1;
+      if(res1 == 999) {
+          res1 = arg2.toString();
+       } else {
+          res1 = arg2.toString()+res1.toString();
+        }
+  }
+  if(args == 1 && res1 != 999) {
+    res1 = args.toString()+res1.toString();
+  } else if(args == 0 && res1 == 999) {
+            res1 = 0;
+         } else if(res1 == 999) {
+                    res1 = 1;
+                 }
+  var ll = res1.length;
+  while(ll%4 != 0) {
+    res1 = "0"+res1;
+    ll = res1.length;
+  }
+  return res1;
+}
+
+
+
+function djb2(s) {
+	var b = '', i, hash = 5381;
+     
+
+	for (i = 0; i < s.length; i++) {
+		b = b + deciToBin(s.charCodeAt(i));
+	}
+
+	for (i = 0; i < b.length; i++) {
+		if (b[i] == '1') {	
+		hash = ((hash << 5) + hash) + 1;
+		} else {
+		hash = ((hash << 5) + hash) + 0;
+		}
+	}
+ 
+	return Math.abs(hash);
+}
+
+$("#hashear").click(function(){
+	$("#resultado").val( djb2( $("#origen").val() ) );
+});
+
+$(".marcoMenuRueda").load("web/resumen/index.html .menuRueda");
+cargado=true;
+</script>

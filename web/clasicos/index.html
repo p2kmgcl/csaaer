@@ -1,0 +1,156 @@
+﻿<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#clasicos_index">Algoritmos Clásicos</a></h1>
+</header>
+<article>
+	<h2>Introducción</h2>
+	<p>Los algoritmos de Cifrado Clásico son los métodos de codificación de mensajes que han sido diseñados y usados en su mayoría años antes de la actual Era Tecnológica. Debido a la escasez de medios que existían en su tiempo, la simplicidad era un requisito necesario para poder implementar y decodificar este tipo de algoritmos.</p>
+	<p>Algunos de ellos fueron usados por personalidades políticas históricas, como lo fueron Julio César (que da nombre a uno de los algoritmos) o Napoleón Bonaparte. Los más recientes fueron creados con fines puramente militares, para transportar información en un mismo bando sin que ésta se filtrase al enemigo.</p>
+	<p>Existen dos tipos de cifrado clásico: por <b>sustitución</b> y por <b>transposición</b>.</p>
+	<p>Los cifrados por sustitución se basan en una premisa sencilla: cada letra del alfabeto utilizado es sustituída por otra situada a un determinado número de posiciones tras la original. Ese desplazamiento de tamaño estático se usa igualmente para cada una de las letras. También se pueden utilizar claves para alterar las posiciones de las letras cifradas. Dependiendo del número de alfabetos codificados, podemos distinguir entre cifrados de sustitución monoalfabéticos y polialfabéticos.</p>
+	<p>Por su parte, el cifrado por transposición se diferencia del anterior en que se utilizan las mismas letras del mensaje original en el mensaje codificado, y únicamente varian las posiciones. Tradicionalmente se utilizaba la escítala para transformar textos en cifrados por transposición. Posteriormente se crearon máquinas con estructuras más complejas cuyos mensajes eran más difíciles de decodificar.</p>
+	<p>En la actualidad, el Cifrado Clásico está en desuso por su baja fiabilidad. Su utilización ha sido reemplazada por algoritmos modernos acordes con la capacidad tecnológica de la que disponemos hoy en día.</p>
+
+	<h2>Trasposición</h2>
+	<p>Un ejemplo práctico de trasposición. En las claves solo se pueden elegir números del 1 al 3 sin repetir.</p>
+	<form>
+		<input type="text" id="origen" placeholder="Introduce el texto para cifrarlo/descifrarlo" class="formulario" />
+		<div class="botones">
+			<input type="number" id="clave1" placeholder="0" maxlength="1" value="1" required class="formulario" />
+			<input type="number" id="clave2" placeholder="0" maxlength="1" value="2" required class="formulario" />
+			<input type="number" id="clave3" placeholder="0" maxlength="1" value="3" required class="formulario" />
+		</div>
+		<div class="botones">
+			<input type="button" id="codificador" value="Codificar" />
+			<input type="button" id="decodificador" value="Decodificar" />
+		</div>
+		<input type="text" id="resultado" placeholder="Texto cifrado/descifrado" class="formulario" />
+	</form>
+</article>
+<nav class="menuRueda">
+	<ul>
+		<li><a href="#clasicos_index">Sustitución</a><ul>
+			<li><a href="#clasicos_index">Monoalfabéticos</a><ul>
+				<li><a href="#clasicos_caesar_index">Caesar</a></li>
+				<li><a href="#clasicos_rot13_index">Rot13</a></li>
+				<li><a href="#clasicos_afin_index">Sustitución Afí­n</a></li>
+			</ul></li>
+			<li><a href="#clasicos_index">Polialfabéticos</a><ul>
+				<li><a href="#clasicos_vigenere_index">Vigenère</a></li>
+			</ul></li>
+		</ul></li>
+		<li><a href="#clasicos_index">Transposición</a><ul>
+			<li><a href="#clasicos_escitalo_index">Escítalo/a</a></li>
+			<li><a href="#clasicos_enigma_index" id="batSenal">Enigma</a></li>
+			<li><a href="#clasicos_lorenz_index">Cifrado de Lorenz</a></li>
+		</ul></li>
+	</ul>
+</nav>
+<div id='batman'></div>
+<style>
+	#batman{
+		position: fixed;
+		top: 100px;
+		left: 100px;
+		width: 250px;
+		height: 250px;
+		padding: 10px;
+		border-radius: 50%;
+		box-shadow: inset 0 0 5px black;
+		z-index: 1001;
+		background-image: url(imagenes/batman.jpg);
+		background-size: contain;
+		display: none;
+	}
+	
+	/**
+	 * Formulario de trasposición
+	 */
+
+	#clave1, #clave2, #clave3{
+		width: 60px;
+		margin: auto;
+		height: 50px;
+		font-size: 50px;
+		text-align: center;
+	}
+	#codificador, #decodificador{
+		display: inline;
+	}
+	.botones{
+		margin: 20px;
+		width: 100%;
+		text-align: center;
+		display: block;
+	}
+	#origen, #resultado{
+		font-size: 200%;
+		text-align: center;
+		width: 500px;
+		min-height: 100px;
+		height: auto;
+		margin: auto;
+		margin-left: 50px;
+		padding: 10px;
+	}
+</style>
+<script>
+	/**
+	 * Ejemplo de trasposición
+	 */
+	function codificarTrasposicion(cadena,key){
+		var columnas="",cifrado="";
+		var filas = Math.ceil(cadena.length / key.length);
+		var i,j,aux;
+  
+        for(i=cadena.length; i < filas*key.length ;i++){
+			cadena+=" ";
+        }
+        for(i = 0 ; i < key.length; i++){
+            for(j = 0 ; j < filas ; j++){
+				columnas=columnas+cadena[key.length*j+i];
+      		}
+		}
+		for(j = 0 ; j < key.length ; j++){
+            aux=(key[j]-1)*filas;
+			cifrado=cifrado+(columnas.substring(aux,(aux+filas)));
+        }
+		return cifrado;
+	}
+	function decodificarTrasposicion(cadena,key){
+		var columnas="",cifrado="";
+		var filas = Math.ceil(cadena.length / key.length);
+		var i,j,aux;
+
+        for(i=cadena.length; i < filas*key.length ;i++){
+            cadena+=" ";
+        }
+		for(j = 0 ; j < key.length ; j++){
+			aux=(key[j]-1)*filas;
+			cifrado=cifrado+(cadena.substring(aux,(aux+filas)));
+		}
+        for(i = 0 ; i < filas; i++){
+            for(j = 0 ; j < key.length ; j++){
+				columnas=columnas+cifrado[filas*j+i];
+      		}
+		}
+		return columnas;
+	}
+	$("#codificador").click(function(){
+		$("#resultado").val( codificarTrasposicion( $("#origen").val(),[$("#clave1").val(),$("#clave2").val(),$("#clave3").val()] )  );
+	});
+	$("#decodificador").click(function(){
+		$("#resultado").val( decodificarTrasposicion( $("#origen").val(),[$("#clave1").val(),$("#clave2").val(),$("#clave3").val()] )  );
+	});
+
+	/**
+	 * Activa la batSeñal
+	 */
+	$(function(){
+		$("#batSenal").mouseenter(function(){
+			$("#batman").stop(true,true).show("fade",300);		
+		}).mouseleave(function(){
+			$("#batman").stop(true,true).hide("fade",300);
+		});
+	});
+	cargado=true;
+</script>

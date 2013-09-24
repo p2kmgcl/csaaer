@@ -1,0 +1,69 @@
+﻿<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#flujo_index">Cifrados de Flujo</a> - <a href="#flujo_rc4_index">RC4</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>
+	<!-- Descripción del algoritmo -->
+	
+	
+
+<h2>Introducción</h2>
+
+<p>RC4 es probablemente el cifrado de flujo más conocido, debido a su uso en famosos protocolos como el Protocolo SSL y el cifrado de seguridad inalámbrica WEP.</p>
+	
+<p>Es un algoritmo bastante simple y rápido, pero cuya seguridad ha estado en entredicho desde el momento de su creación, en el año 1987 por Ron Rivest (RSA Security).</p>
+
+<h3>Proceso de cifrado</h3>
+	
+
+<p>El algoritmo consta de dos subalgoritmos: una clave KSA y un generador de caracteres pseudoaleatorios (PRGA).
+Para generar el mensaje cifrado, RC4 realiza dos pasos: </p>
+
+
+<ul><li>Una permutación de 256 bytes ("S")</li>
+<li>Dos punteros de 8 bits ("i" y "j")</li>
+</ul>
+
+<p>La clave KSA inicializa la permutación con una llave de tamaño variable (hasta 256b). El array "S" es inicializado con la Identidad. Posteriormente, S es procesado en 256 iteraciones, mezclando bytes de la clave al mismo tiempo.</p>
+
+<pre>for i from 0 to 255
+    S[i] := i
+endfor
+j := 0
+for i from 0 to 255
+    j := (j + S[i] + key[i mod keylength]) mod 256
+    swap values of S[i] and S[j]
+endfor</pre>
+
+<p>Posteriormente, PRGA modifica el estado y saca un byte del flujo de claveo. En cada iteración, el PRGA incrementa <i>i</i>, busca el elemento i-ésimo en S (S[i]) y lo añade a j; intercambia los valores de S[i] y S[j], y posteriormente los suma y calcula el resto de dividirlos entre 256, que usa para capturar un tercer elemento de S, el cual es lo que resultará en el cifrado final. Cada elemento de S es intercambiado con otro elemento al menos una vez en cada una de las 256 iteraciones.
+
+<pre>i := 0
+j := 0
+while GeneratingOutput:
+    i := (i + 1) mod 256
+    j := (j + S[i]) mod 256
+    swap values of S[i] and S[j]
+    K := S[(S[i] + S[j]) mod 256]
+    output K
+endwhile</pre>
+
+<h3>Seguridad</h3>
+
+<p>El cifrado RC4 no es muy seguro y se conoce cómo descifrarlo. La manera en la que genera subclaves en el proceso de cifrado es bastante pobre, y los ataques sobre este tipo de cifrado han sido muchos y de distintos modos.</p>
+
+<p>La razón por la que su uso está tan extendido es por su rapidez y sencillez, un requisito más buscado que la máxima seguridad, la cual muchos usuarios consideran poco necesaria en la práctica.</p>
+	
+
+</article>
+
+<style>
+</style>
+
+<script>
+	// Aquí va el código del algoritmo
+</script>
+
+<script>$(".marcoMenuRueda").load("web/flujo/index.html .menuRueda");
+cargado = true;</script>
+

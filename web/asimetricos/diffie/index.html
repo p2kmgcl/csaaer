@@ -1,0 +1,31 @@
+<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#asimetricos_index">Algoritmos Asimétricos</a> - <a href="#asimetricos_diffie_index">Diffie-Hellman</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>
+	<h2>Introducción</h2>
+	<p>El protocolo criptográfico Diffie-Hellman, debido a Whitfield Diffie y Martin Hellman, (Diffie–Hellman Problem->DHP) es un protocolo de establecimiento de claves entre partes que no han tenido contacto previo, utilizando un canal inseguro, y de manera anónima (no autenticada).</p>
+	<p>Se emplea generalmente como medio para acordar claves simétricas que serán empleadas para el cifrado de una sesión (establecer clave de sesión). Siendo no autenticado, sin embargo, provee las bases para varios protocolos autenticados.</p>
+	<p>Su seguridad radica en la extrema dificultad (conjeturada, no demostrada) de calcular logaritmos discretos en un cuerpo finito.</p>
+
+	<h2>Ataques activos</h2>
+	<p>El protocolo es sensible a ataques activos del tipo Man-in-the-middle. Si la comunicación es interceptada por un tercero, éste se puede hacer pasar por el emisor cara al destinatario y viceversa, ya que no se dispone de ningún mecanismo para validar la identidad de los participantes en la comunicación. Así, el "hombre en el medio" podría acordar una clave con cada participante y retransmitir los datos entre ellos, escuchando la conversación en ambos sentidos. Una vez establecida la comunicación simétrica el atacante tiene que seguir en medio interceptado y modificando el tráfico para que no se den cuenta. Observar que para que el ataque sea operativo el atacante tiene que conocer el método de cifrado simétrico que será utilizado. Basarse en la ocultación de algoritmo simétrico de cifrado no cumple con los principios de Kerckhoffs (la efectividad del sistema no debe depender de que su diseño permanezca en secreto).</p>
+	<img src="imagenes/manInTheMiddleDiffie.svg" />
+	<p>Para evitar este tipo de ataque se suele usar una o más de las siguientes técnicas:</p>
+	<ul>
+		<li>Control de tiempos</li>
+		<li>Autenticación previa de las partes. Por ejemplo usar en protocolo de capa subyacente atenticación. Podríamos primero establecer una conexión TLS y sobre esa capa aplicar el algoritmo de Diffie-Hellman</li>
+    	<li>Autenticación del contenido. Por ejemplo podríamos usar MAC sobre el contenido de los mensajes</li>
+   </ul>
+</article>
+
+<style>
+</style>
+
+<script>
+	// Aquí va el código del algoritmo
+</script>
+
+<script>$(".marcoMenuRueda").load("web/asimetricos/index.html .menuRueda");
+cargado = true;</script>

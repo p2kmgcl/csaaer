@@ -1,0 +1,51 @@
+﻿<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#bloques_index">Cifrado por bloques</a> - <a href="#bloques_rijndael_index">Algoritmo Rijndael</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>
+	<h2>Introducción y funcionamiento</h2>
+      <p>
+El algoritmo Rijndael es un algoritmo de encriptado simétrico, dentro de la familia AES, que utiliza un cifrado por bloques, empleando una serie de rondas para transformar cada bloque. Rijndael se diferencia de los otros algoritmos AES por utilizar un tamaño de bloque de 128 bits y un tamaño de clave variable, pero múltiplo de 128 bits (depende del tamaño de bloque). Los bloques contienen la codificación en hexadecimal de cada uno de los caracteres de un trozo de mensaje. Cada bloque es de tamaño 4x4 casillas, donde cada casilla es un carácter. Como cada carácter corresponde a dos caracteres hexadecimales, el tamaño máximo del mensaje a introducir por bloque es de 16 caracteres en Rijndael.
+Estas transformaciones son:
+	- SubBytes: Se sustituyen cada uno de los caracteres de la casilla por otro dentro de una matriz, llamada S-Caja, donde los dos índices de acceso son, precisamente, los dos caracteres en hexadecimal que corresponden al carácter a codificar/decodificar (se necesita una S-Caja para codificar y otra para decodificar).
+	- ShiftRows: A la fila i-ésima se le aplica una permutación igual a i (se empieza desde 0);
+	- MixColumns: Se coge cada una de las columnas y se multiplican por una matriz (a la hora de desencriptar, se multiplica por su inversa).
+<pre>
+		    c1	      02      03      01      01        b1
+		    c2	=     01      02      03      01  *     b2
+		    c3	      01      01      02      03        b3
+		    c4	      03      01      01      02        b4
+                                                                                      
+</pre>
+<p>
+El producto y la suma que aquí se definen no son los usuales, teniendo en cuenta, además, que los dos caracteres hexadecimales representan un carácter. La suma se define como el O- Exclusivo (Xor) a nivel de bit entre dos caracteres. El producto se define de la siguiente manera:
+Se toma carácter y codificación binaria. Por ejemplo a=01100001. Entonces, se hace el producto en el campo de Galois, que consiste en considerar el carácter como un polinomio con coeficientes en GL(28). Así, ‘a’ sería igual a x6+x5+1 en GL(28). Al multiplicar se hace el módulo con el polinomio x8+x4+x3+x+1, que es irreducible en GL(28) (puesto que el producto puede estar fuera del conjunto de las clases de equivalencia que establece la relación p(x) mod x8+x4+x3+x+1).
+</p><p>
+-AddRoundKey: Se le añade, a cada columna, la columna correspondiente a la clave de subronda generada para esa etapa.
+
+En total son 9 rondas principales, una ronda inicial y otra final. En la primera ronda solo se le añade la primera clave de subronda. Durante las 9 rondas principales, se llevan a cabo las cuatro operaciones en el orden indicado; y en la ronda final, se llevan a cabo todas menos MixColumns.
+
+El generador de ronda es de la siguiente manera: se tiene una clave extendida, que tiene 44 columnas (4 por cada 11 subclaves), numeradas desde la 0 a la 43. Las columnas múltiplo de 4 (primera columna de la subclave) se obtienen cogiendo la columna anterior, haciéndole una rotación de una sola casilla (de la primera a la última). Ésta transformación se llama RotWord.
+A continuación, se le aplica subBytes a cada elemento de la columna (la S-Caja depende de si se esta desencriptando o encriptando; en cualquier caso, una es la traspuesta de la otra).
+</p>
+
+<h3>Críticas</h3>
+
+<p>
+El Rijndael parece tener un margen de seguridad adecuado. Pese a ello, ha sido criticado por tener el nivel de seguridad más bajo entre los más conocidos algoritmos AES, ya que su estructura matemática puede conducir a ataques. Sin embargo, esta estructura es la que permite un mejor análisis del algoritmo, que no es posible romper con ataques conocidos.
+
+
+
+</p>
+</article>
+
+<style>
+</style>
+
+<script>
+	// AquÃ­ va el cÃ³digo del algoritmo
+</script>
+
+<script>$(".marcoMenuRueda").load("web/bloques/index.html .menuRueda");
+cargado = true;</script>

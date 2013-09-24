@@ -1,0 +1,66 @@
+<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#resumen_index">Funciones Resumen</a> - <a href="#resumen_sha-1_index">SHA-1</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+
+<article>
+	<!-- Descripción del algoritmo -->
+	<p>La familia SHA (Secure Hash Algorithm, Algoritmo de Hash Seguro) es un sistema de funciones hash criptográficas relacionadas de la Agencia de Seguridad Nacional de los Estados Unidos y publicadas por el National Institute of Standards and Technology (NIST). El primer miembro de la familia fue publicado en 1993, el SHA-0. Dos años más tarde el primer sucesor de SHA fue publicado con el nombre de SHA-1. Existen cuatro variantes más que se han publicado desde entonces cuyas diferencias se basan en un diseño algo modificado y rangos de salida incrementados: SHA-224, SHA-256, SHA-384, y SHA-512 (llamándose SHA-2 a todos ellos).</p>	
+	<p>SHA-0 y SHA-1 producen una salida resumen de 160 bits (20 bytes) de un mensaje que puede tener un tamaño máximo de 264 bits, y se basa en principios similares a los usados por el profesor Ronald L. Rivest del MIT en el diseño de los algoritmos de resumen de mensaje MD4 y MD5.</p>
+	<h2>Ejemplos</h2>
+
+	<p>La codificación de un campo vacíoes la siguiente:</p>
+	<pre>   SHA1("") = da39a3ee5e6b4b0d3255bfef95601890afd80709
+	</pre>
+	<h2>Debilidades</h2>
+	<p>La resistencia del algoritmo SHA-1 se ha visto comprometida a lo largo del año 2005. Después de que MD5, entre otros, quedara seriamente comprometido en el 2004 por parte de un equipo de investigadores chinos, el tiempo de vida de SHA-1 quedó visto para sentencia.
+	</p>
+	<p>
+	El mismo equipo de investigadores chinos, compuesto por Xiaoyun Wang, Yiqun Lisa Yin y Hongbo Yu (principalmente de la Shandong University en China), ha demostrado que son capaces de romper el SHA-1 en al menos 2^69 operaciones, unas 2000 veces más rápido que un ataque de fuerza bruta (que requeriría 2^80 operaciones). Los últimos ataques contra SHA-1 han logrado debilitarlo hasta 2^63.
+	</p>
+	<p>
+	A pesar de que 2^63 suponen aún un número alto de operaciones, se encuentra dentro de los límites de las capacidades actuales de cálculos, y es previsible que con el paso del tiempo romper esta función sea trivial, al aumentar las capacidades de cálculo y al ser más serios los ataques contra SHA-1.
+	</p>
+
+
+<form>
+		<input type="text" id="origen" placeholder="Introduce el texto para cifrarlo/descifrarlo" class="formulario" />
+		<div id="botones">
+			<input type="button" id="codificador" value="Hashear" />
+		</div>
+		<input type="text" id="resultado" placeholder="Aquí aparecerá el tecto cifrado/descrifrado" class="formulario" />
+	</form>
+<article>
+
+<style>
+	form input, form textarea{
+		text-align: center;
+		margin: 10px auto;
+		display: block;
+		font-size: 20px;
+	}
+	#origen, #resultado{
+		width: 100%;
+		padding: 20px;
+	}
+	#codificador{
+		display: inline;
+	}
+	#botones{
+		margin: auto;
+		width: 100%;
+		text-align: center;
+		display: block;
+	}
+</style>
+
+<script>
+
+	$("#codificador").click(function(){
+	$("#resultado").val( sha1( $("#origen").val() ) );
+});
+
+
+$(".marcoMenuRueda").load("web/resumen/index.html .menuRueda");
+cargado = true;</script>

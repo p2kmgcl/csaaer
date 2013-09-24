@@ -1,0 +1,392 @@
+﻿<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#clasicos_index">Algoritmos Clásicos</a> - <a href="#clasicos_vigenere_index">Vigenère</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>
+	<!-- Descripción del algoritmo -->
+	<h2>Introduccion</h2>
+
+	<p>El cifrado Vigenère es un cifrado basado en diferentes 
+	series de caracteres o letras del cifrado Cesar formando estos caracteres una tabla,
+	 llamada tabla de Vigenère, que se usa como clave. El cifrado de Vigenere es un cifrado 
+      polialfabético y de sustitución.</p>
+	
+	
+	<h3>Proceso de cifrado</h3>
+
+	<p>El cifrado Vigenère es un criptosistema simétrico, es decir, utiliza la misma clave para cifrar y descifrar. Este cifrado  se asemeja mucho al cifrado Cesar, pero su diferencia radica en que el primero utiliza una clave más larga para contrarrestar el ran problema del cifrado César: el hecho de que una letra solo puede ser codificada de una forma. Para resolver este problema, se utiliza una palabra clave en lugar de un carácter simple.
+	En primer lugar, se asocia cada letra con una cifra correspondiente.
+<pre>	
+	
+	Ek  = (mi + k sub(i mod d)) (mod n) 
+	siendo Mi el mensaje, Ki la clave y Ci el mensaje  y n el cuerpo en el que se trabaja.
+
+</pre>	
+</p>
+<img src="imagenes/tabla1.jpg" />
+<p>
+Se codifica un texto con una palabra agregándole las letras de otra palabra (llamada palabra clave) a cada una de sus letras. La palabra clave se agrega indefinidamente en el texto que se va a cifrar, y después se agrega el código ASCII de cada una de las letras de la palabra clave al texto a cifrar. Por ejemplo, el texto "rendezvousamidi" con su palabra clave "bonjour" será codificado de la siguiente manera:
+
+<img src="imagenes/tabla2.jpg" />
+
+
+</p>
+
+<h3></h3>
+<p>
+<h3>Proceso de descifrado</h3>
+Para descifrar este mensaje se necesita la clave secreta y se realiza el descifrado inverso utilizando la sustracción.
+
+A pesar de que el cifrado es mucho más sólido que el cifrado César, aún así se puede romper fácilmente. Cuando los mensajes son mucho más largos que la palabra clave, es posible identificar el largo de la palabra clave y utilizar, para cada secuencia de palabra clave, el método de cálculo de la frecuencia con que aparecen las letras, y determinar así los caracteres de las palabras claves una a la vez...
+
+Para evitar este problema, una solución es utilizar una palabra clave que sea casi igual de larga como el texto, a fin de evitar un estudio estadístico del texto cifrado. Este tipo de sistema de cifrado se llama sistema one-time pad. El problema con este tipo de método es la longitud de la clave de cifrado (cuanto más largo el texto a ser cifrado, más grande deberá ser la clave) que impide su memorización e implica una probabilidad mucho
+ más grande de errores en la clave (un solo error hace que el texto sea imposible de leer). En este caso se convierte en un sistema de sustitucion afín con desplazamiento igual a 2.
+
+<pre>
+
+Mi=(Ci-Ki) mod 27 
+siendo Mi el mensaje, Ki la clave y Ci el mensaje cifrado
+
+</pre>
+<h4>Ejemplo práctico</h4>
+
+<p>
+Aquí se puede ver como funciona. En lugar de utilizar la codificación interna de cada caracter, 
+hemos asociado a cada uno un valor numérico, desde el 0 hasta el 28 (este último es un carácter inválido y 
+se escribe como un espacio).
+
+</p>
+
+
+ </p>
+
+		
+	
+</article>
+
+
+<form>
+		<input type="text" id="origen" placeholder="Introduce el texto para cifrarlo/descifrarlo" class="formulario" />
+		<input type="text" id="clave" placeholder="Introduce aquí la clave" class="formulario" />
+		<div id="botones">
+			<input type="button" id="codificador" value="Codificar" />
+			<input type="button" id="decodificador" value="Decodificar" />
+		</div>
+		<input type="text" id="resultado" placeholder="Aquí aparecerá el tecto cifrado/descrifrado" class="formulario" />
+	</form>
+	<style>
+	form input, form textarea{
+		text-align: center;
+		margin: 10px auto;
+		display: block;
+		font-size: 20px;
+	}
+	#origen, #clave, #resultado{
+		width: 100%;
+		padding: 20px;
+	}
+	#codificador, #decodificador, #clave{
+		display: inline;
+	}
+	#botones{
+		margin: auto;
+		width: 100%;
+		text-align: center;
+		display: block;
+	}
+</style>
+<script>
+/*Este es un ejemplo de cifrado polialfabético (la sustitución aplicable a cada carácter varía en función de la posición que ocupe en el mensaje en claro), en el que la clave es un secuencia de símbolos (una palabra; K = {k0, k1, ... , kd-1) y que se define en la siguiente expresión:
+
+                Ek  = (mi + k sub(i mod d)) (mod n)
+donde mi es el i-ésimo símbolo del texto a cifrar (mensaje en claro) y n es el número de letras del alfabeto. 
+
+/**
+*@function: funcion al que se le pasa una cadena y calcula su valor numerico
+*@param: cadena, ya sea la clave o mensaje
+*@post:retorna una cadena de enteros igual al valor de la clave en intero
+*/
+function calcularvalor(clave){
+	clave=clave.toUpperCase();
+      
+    var a=[];
+    for(var i=0; i<clave.length; i++){
+            
+	    switch (clave[i]){
+            case 'A':
+              
+              a.push(0);
+              break;
+              
+            case 'B':
+             a.push(1);
+              break;      
+              
+            case 'C':
+               a.push(2);
+              break;
+              
+            case 'D':      
+              a.push(3);
+              break;
+              
+            case 'E':
+              a.push(4);
+              break;
+              
+            case 'F':
+               a.push(5);      
+              break;
+              
+            case 'G':
+               a.push(6);
+              break;
+              
+            case 'H': 
+               a.push(7);
+              break;
+              
+            case 'I':
+              a.push(8);
+              break;
+              
+            case 'J':
+              a.push(9);
+              break;      
+              
+            case 'K':
+               a.push(10);
+              break;
+              
+            case 'L':      
+              a.push(11);
+              break;
+              
+            case 'M':
+               a.push(12);
+              break;
+              
+            case 'N':
+              a.push(13);     
+              break;
+              
+            case 'O':
+               a.push(14);
+              break;
+              
+            case 'P': 
+              a.push(15);
+              break;
+              
+            case 'Q':
+               a.push(16);
+              break;
+              
+            case 'R':
+             a.push(17);
+              break;      
+              
+            case 'S':
+               a.push(18);
+              break;
+              
+            case 'T':      
+              a.push(19);
+              break;
+              
+            case 'U':
+               a.push(20);
+              break;
+              
+            case 'V':
+              a.push(21);          
+              break;
+              
+            case 'W':
+               a.push(22);
+              break;
+              
+            case 'X': 
+               a.push(23);
+              break;
+              
+            case 'Y':
+              a.push(24);
+              break;
+              
+            case 'Z':
+              a.push(25);
+              break;      
+              
+            default:
+               a.push(26);
+              
+              
+          }
+        
+	}
+   
+  return a;
+  
+}
+
+
+/*
+*@funtion la funcion contraria a calcular valor
+*/
+function descalcularvalor(clave)
+{ 
+ 
+  
+       
+    var a=[];
+ 
+    for(var i=0; i<clave.length; i++){
+            
+	    switch (clave[i]){
+            case 0: a.push('A'); break;
+            case 1: a.push('B'); break; 
+            case 2: a.push('C'); break;
+            case 3: a.push('D'); break;
+            case 4: a.push('E'); break;
+			case 5: a.push('F'); break;
+            case 6: a.push('G'); break;
+            case 7: a.push('H'); break;
+            case 8: a.push('I'); break;
+              
+            case 9:
+              a.push('J');
+              break;      
+              
+            case 10:
+               a.push('K');
+              break;
+              
+            case 11:      
+              a.push('L');
+              break;
+              
+            case 12:
+               a.push('M');
+              break;
+              
+            case 13:
+              a.push('N');     
+              break;
+              
+            case 14:
+               a.push('O');
+              break;
+           
+            case 15:
+               a.push('P');
+              break;
+              
+            case 16:
+              a.push('Q');
+              break;
+              
+            case 17:
+              a.push('R');
+              break;
+                
+            case 18:
+              a.push('S');     
+              break;
+              
+            case 19:
+               a.push('T');
+              break;
+           
+            case 20:
+               a.push('U');
+              break;
+              
+            case 21:
+              a.push('V');
+              break;
+              
+            case 22:
+              a.push('W');
+              break;      
+                
+                
+            case 23:
+               a.push('X');
+              break;
+              
+            case 24:
+              a.push('Y');
+              break;
+              
+            case 25:
+              a.push('Z');
+              break;      
+              
+            default:
+               a.push(" ");
+              
+              
+          }
+        
+	}
+   
+  return a;
+  
+}
+
+/*
+*
+* @function: Ci=(Mi+Ki) mod 27siendo Mi el mensaje, Ki la clave y Ci el mensaje cifrado
+* @param: El mensaje y la clave;
+**/
+function EncryptVigenere(str,clave)
+{
+  str=calcularvalor(str);
+  clave=calcularvalor(clave); 
+  var mensaje=[];
+  for(i=0;i<str.length;i++)
+  {
+    mensaje.push((str[i]+clave[i%clave.length])%27);
+  }
+  mensaje=descalcularvalor(mensaje);
+  return mensaje;
+}
+/*
+*
+* @function: Mi=(Ci-Ki) mod 27 siendo Mi el mensaje, Ki la clave y Ci el mensaje cifrado
+* @param: El mensaje y la clave;
+**/
+function DecryptVigenere(str,clave)
+{
+  clave=calcularvalor(clave); 
+  var mensaje=[];
+  for(i=0;i<str.length;i++)
+  {
+    mensaje.push((27+(str[i]-clave[i%clave.length]))%27);
+  }
+  
+  mensaje=descalcularvalor(mensaje);
+return mensaje;
+
+}
+/**
+var mensaje;
+mensaje=EncryptVigenere("He consegio implementar el vigenere estaba chupao","cafo");
+ 
+mensaje=DecryptVigenere(mensaje,"cafo");
+
+document.write("<br>");
+ document.write(mensaje);
+*/
+$("#codificador").click(function(){
+	$("#resultado").val( EncryptVigenere( $("#origen").val(), $("#clave").val() ) );
+});
+$("#decodificador").click(function(){
+	$("#resultado").val( DecryptVigenere( $("#origen").val(), $("#clave").val() ) );
+});
+$(".marcoMenuRueda").load("web/clasicos/index.html .menuRueda");
+cargado = true;
+
+</script>

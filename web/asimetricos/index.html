@@ -1,0 +1,31 @@
+﻿<header id="cabeceraSecundaria">
+	<hgroup>
+		<h1><a href="#">csaaer</a> - <a href="#asimetricos_index">Algoritmos Asimétricos</a></h1>
+	</hgroup>
+</header>
+
+
+<article>
+
+<h2>Introducción</h2>
+<p>Los algoritmos asimétricos son los que utilizan un par de claves, <i>pública</i> y <i>privada</i>, que son propias de cada usuario (es imposible que se genere un par de claves iguales para dos usuarios distintos). <p>
+
+<p>La clave pública se puede entregar a cualquier persona. Una persona con la clave pública de otro puede utilizar ésta para codificar un mensaje y hacérselo llegar al remitente que le cedió la clave. Este, usando su clave privada, podrá descifrar este mensaje ya que su clave privada y la clave pública que ha usado el emisor pertenecen al mismo par del usuario. De esta manera se consigue absoluta <u>confidencialidad</u>.</p>
+
+<p>Además, si para cifrar se usa la clave privada, cualquier usuario puede usar la clave pública del emisor para descifrar este mensaje. Con esto se consigue <u>verificar la identidad</u> del emisor, lo que genera el concepto de "firma digital".
+
+<img src="imagenes/asimetricaintro.png" />
+
+<h3>Comparativa con la criptografía asimétrica</h3>
+<p>La criptografía simétrica usa una única clave para cifrar y descifrar, mientras que la asimétrica utiliza dos claves diferentes.</p>
+<p>Esencialmente, con la primera se resuelven los problemas de confidencialidad e integridad, mientras que con la segunda se resuelven los de autenticidad y no rechazo; sin embargo, estos problemas son tratados, en mayor o menor medida, por ambos tipos de criptografía.</p>
+
+</article>
+
+
+
+<nav class="menuRueda"><ul>
+	<li><a href="#asimetricos_rsa_index">RSA</a></li>
+	<li><a href="#asimetricos_diffie_index">Diffie-Hellman</a></li>
+</ul></nav>
+<script> cargado=true; </script>

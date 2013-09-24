@@ -1,0 +1,38 @@
+<header id="cabeceraSecundaria">
+	<h1><a href="#">csaaer</a> - <a href="#asimetricos_index">Algoritmos Asimétricos</a> - <a href="#asimetricos_rsa_index">RSA</a></h1>
+</header>
+<nav class="marcoMenuRueda"></nav>
+
+<article>
+	<h2>Introducción</h2>
+	<p>De entre todos los algoritmos asimétricos, quizás RSA sea el más sencillo de comprender e implementar. Como ya se ha dicho, sus claves sirven indistintamente tanto para codificar como para autentificar. Debe su nombre a sus tres inventores: Ronald Rivest, Adi Shamir y Leonard Adleman, y estuvo bajo patente de los Laboratorios RSA hasta el 20 de septiembre de 2000, por lo que su uso comercial estuvo restringido hasta esa fecha. De hecho, las primeras versiones de PGP lo incorporaban como método de cifrado y firma digital, pero se desaconsejó su uso a partir de la versión 5 en favor de otros algoritmos, que por entonces sí eran libres.</p>
+	<p>Sujeto a multiples controversias, desde su nacimiento nadie ha conseguido probar	o rebatir su seguridad, pero se le tiene como uno de los algoritmos asimétricos más seguros.</p>
+	<p>RSA se basa en la dificultad para factorizar grandes numeros. Las claves publica	y privada se calculan a partir de un numero que se obtiene como producto de dos primos grandes. El atacante se enfrentará, si quiere recuperar un texto claro a partir del criptograma y la clave publica, a un problema de factorizacion o tendrá que resolver un logaritmo discreto.	Para generar un par de claves (KP , Kp ), en primer lugar se eligen aleatoriamente dos numeros primos grandes, p y q. Después se calcula el producto n = pq. Escogeremos ahora un numero e primo relativo con (p − 1)(q − 1). (e, n) serla clave publica. Notese que e debe tener inversa modulo (p − 1)(q − 1), por lo que existirá un numero de tal que
+	<pre>
+		de ≡ 1 (mod (p − 1)(q − 1))
+	</pre>
+	<p>es decir, que de es la inversa de e modulo (p−1)(q −1). (d, n) será la clave privada. Esta inversa puede calcularse fácilmente empleando el Algoritmo Extendido de Euclides. Notese que si desconocemos los factores de n, este cálculo resulta prácticamente imposible.</p>
+
+	<h2>Proceso de cifrado</h2>
+	<p>La operacion de cifrado se lleva a cabo segun la expresion:</p>
+	<pre>
+		c = me(mod n)
+	</pre>
+
+	<h2>Proceso de descifrado</h2>
+	<p>mientras que el descifrado se hará de la siguiente forma:</p>
+	<pre>
+		m = cd(mod n)
+	</pre>
+</article>
+
+<style>
+	pre{ display: block; }
+</style>
+
+<script>
+	// Aquí va el código del algoritmo
+</script>
+
+<script>$(".marcoMenuRueda").load("web/asimetricos/index.html .menuRueda");
+cargado = true;</script>
